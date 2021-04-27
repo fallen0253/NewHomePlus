@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center|top"
+    android:orientation="vertical"
+    tools:context=".Room">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="현재 색상 보여주기"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp">
+        <TextView
+            android:id="@+id/tvRED"
+            android:layout_marginLeft="40dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="RED"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:textStyle="bold"/>
+        <ProgressBar
+            android:id="@+id/pbRED"
+            android:layout_marginLeft="20dp"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_marginRight="100dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp">
+        <TextView
+            android:id="@+id/tvGREEN"
+            android:layout_marginLeft="40dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="GREEN"
+            android:layout_weight="1"
+            android:textStyle="bold"/>
+        <ProgressBar
+            android:id="@+id/pbGREEN"
+            android:layout_marginLeft="20dp"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_marginRight="100dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp">
+    <TextView
+        android:id="@+id/tvBLUE"
+        android:layout_marginLeft="40dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="BLUE"
+        android:layout_weight="1"
+        android:textStyle="bold"/>
+    <ProgressBar
+        android:id="@+id/pbBLUE"
+        android:layout_marginLeft="20dp"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_marginRight="100dp"
+        />
+
+</LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/shutdown1"
+            android:layout_marginTop="200dp"/>
+
+</LinearLayout>
