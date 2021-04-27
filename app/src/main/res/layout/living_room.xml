@@ -13,15 +13,13 @@
         android:layout_height="50dp"
         android:gravity="center"
         android:orientation="horizontal">
-
         <TextView
             android:textSize="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="현재 LCD 정보"
             android:layout_marginRight="50dp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
         <Switch
             android:id="@+id/swLED"
             android:layout_width="wrap_content"
@@ -30,62 +28,84 @@
             android:text="LED 전원"/>
             
     </LinearLayout>
-    
-        <TextView
-            android:id="@+id/tvContent"
-            android:layout_gravity="center"
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginTop="20dp"
+        android:padding="10dp">
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_marginBottom="20dp" />
+            android:layout_height="140dp"
+            android:src="@drawable/button_full"/>
+        <TextView
+            android:id="@+id/tvLCD1"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/lcd_bg"
+            android:gravity="center"
+            android:text="오늘 날씨 : 19°C"
+            android:textStyle="bold"
+            android:textSize="35sp"
+            android:textColor="#f7ea00"/>
 
-    <CheckBox
-        android:id="@+id/cbDate"
-        android:layout_marginLeft="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="날짜 정보"/>
-    <CheckBox
-        android:id="@+id/cbWeather"
-        android:layout_marginLeft="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="날씨 정보"/>
-    <CheckBox
-        android:id="@+id/cbDust"
-        android:layout_marginLeft="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="미세먼지 정보"/>
-    <CheckBox
-        android:id="@+id/cbUserInput"
-        android:layout_marginLeft="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="사용자 입력 정보"/>
+        <TextView
+            android:id="@+id/tvLCD2"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/lcd_bg"
+            android:text="미세먼지 : 매우 나쁨"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="35sp"
+            android:textColor="#f7ea00"/>
+    </FrameLayout>
 
     <LinearLayout
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical">
+        <CheckBox
+            android:id="@+id/cbDate"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="날짜 정보"/>
+        <CheckBox
+            android:id="@+id/cbWeather"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="날씨 정보"/>
+        <CheckBox
+            android:id="@+id/cbDust"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="미세먼지 정보"/>
+        <CheckBox
+            android:id="@+id/cbUserInput"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="사용자 입력 정보"/>
         <EditText
-            android:id="@+id/edtInput"
+            android:id="@+id/edtLCDInput"
             android:layout_margin="15dp"
             android:gravity="center"
-            android:width="200dp"
+            android:width="400dp"
             android:height="50dp"
-            android:background="@drawable/background_edittext"
+            android:background="@drawable/button_rect"
             android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="메세지를 입력해주세요"/>
-        <ImageView
-            android:id="@+id/ivShutDown"
-            android:src="@drawable/shutdown1"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"/>
     </LinearLayout>
+
 
 
 </LinearLayout>

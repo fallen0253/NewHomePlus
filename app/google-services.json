@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "81303523028",
+    "project_id": "homeplus-8443f",
+    "storage_bucket": "homeplus-8443f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:81303523028:android:64efe2b416c9663712f541",
+        "android_client_info": {
+          "package_name": "com.example.NewHomePlus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "81303523028-9tqqe4sj2g47i3rh7sb3hi9q3prvjidu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALWEmc8FgjD6GOp0qGjFWz8DjIeafWcGU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "81303523028-9tqqe4sj2g47i3rh7sb3hi9q3prvjidu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:81303523028:android:f434c5ce88d061f012f541",
+        "android_client_info": {
+          "package_name": "com.example.homeplus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "81303523028-9tqqe4sj2g47i3rh7sb3hi9q3prvjidu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALWEmc8FgjD6GOp0qGjFWz8DjIeafWcGU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "81303523028-9tqqe4sj2g47i3rh7sb3hi9q3prvjidu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

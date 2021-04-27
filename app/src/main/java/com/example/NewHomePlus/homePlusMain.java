@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -36,9 +37,10 @@ import java.util.UUID;
 
 public class homePlusMain extends AppCompatActivity {
 
-    FirebaseAuth mAuth;
+    Button btnKitchen, btnLivingRoom, btnBedRoom;
+    ImageView imgPower, ivConnect;
 
-    ImageView ivConnect;
+    FirebaseAuth mAuth;
 
     BluetoothAdapter btAdapter; //클래스
     int paireDeviceCount=0; //블루투스에 연결된 장치 수
@@ -59,8 +61,41 @@ public class homePlusMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_plus_main);
 
-        /*리나 2021-04-24 블루투스 연결 상태 확인*/
+        btnKitchen=findViewById(R.id.btnKitchen);
+        btnLivingRoom=findViewById(R.id.btnLivingRoom);
+        btnBedRoom=findViewById(R.id.btnBedRoom);
+        imgPower=findViewById(R.id.imgLight);
         ivConnect=findViewById(R.id.ivConnect);
+
+        /*리나 2021-04-27 블루투스 연결되었을 경우에만 버튼 클릭 가능 */
+        btnKitchen.setEnabled(false);
+        btnLivingRoom.setEnabled(false);
+        btnBedRoom.setEnabled(true);
+
+        /*리나 2021-04-27 버튼 추가*/
+        btnKitchen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(homePlusMain.this, Kitchen.class);
+                startActivity(intent);
+            }
+        });
+        btnLivingRoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(homePlusMain.this, LivingRoom.class);
+                startActivity(intent);
+            }
+        });
+        btnBedRoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(homePlusMain.this, Room.class);
+                startActivity(intent);
+            }
+        });
+
+        /*리나 2021-04-24 블루투스 연결 상태 확인*/
         ivConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,23 +116,13 @@ public class homePlusMain extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         //textViewUserEmail의 내용을 변경해 준다.
         showToast(user.getEmail()+"으로 로그인 성공");
-
-
-        /*상현 2021-04-21 위젯 탭 연결 후 탭추가 */
-        TabLayout tabs = findViewById(R.id.tabs);
-        tabs.addTab(tabs.newTab().setText("거실"));
-        tabs.addTab(tabs.newTab().setText("부엌"));
-        tabs.addTab(tabs.newTab().setText("방"));
-
-
-
     }
 
     /*상현 2021-04-21 옵션메뉴 생성 메뉴 인플레이트*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.homeplusmenu,menu);
+        menuInflater.inflate(R.menu.membermenu,menu);
         return true;
     }
 
@@ -112,7 +137,7 @@ public class homePlusMain extends AppCompatActivity {
                 Log.i("Test_result : ", "로그아웃.");
                 break;
             case R.id.deleteMember:
-                AlertDialog.Builder alert_confirm = new AlertDialog.Builder(org.techtown.homeplusactivity.homePlusMain.this);
+                AlertDialog.Builder alert_confirm = new AlertDialog.Builder(homePlusMain.this);
                 alert_confirm.setMessage("정말 계정을 삭제 할까요?").setCancelable(false).setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -150,7 +175,7 @@ public class homePlusMain extends AppCompatActivity {
         btAdapter=BluetoothAdapter.getDefaultAdapter();
         if(btAdapter==null){
             //showToast("블루투스를 지원하지 않는 장치입니다.");
-            AlertDialog.Builder builder=new AlertDialog.Builder(org.techtown.homeplusactivity.homePlusMain.this);
+            AlertDialog.Builder builder=new AlertDialog.Builder(homePlusMain.this);
             builder.setTitle("블루투스");
             builder.setMessage("블루투스를 지원하지 않은 폰입니다.\n확인을 누르시면 앱이 종료됩니다.");
             builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
@@ -181,7 +206,7 @@ public class homePlusMain extends AppCompatActivity {
             showToast("페어링된 장치가 없습니다.");
         }else{
             //연결된 장치가 있을 경우
-            AlertDialog.Builder builder=new AlertDialog.Builder(org.techtown.homeplusactivity.homePlusMain.this);
+            AlertDialog.Builder builder=new AlertDialog.Builder(homePlusMain.this);
             builder.setTitle("블루투스 장치 선택");
             List<String> listItems=new ArrayList<String>();
             for(BluetoothDevice device:devices){
@@ -213,6 +238,10 @@ public class homePlusMain extends AppCompatActivity {
             bluetoothSocket=remoteDevice.createRfcommSocketToServiceRecord(uuid);
             bluetoothSocket.connect();//기기와 연결이 완료
             ivConnect.setImageResource(R.drawable.bluetooth_on);
+            /*리나 2021-04-27 블루투스 연결되었을 경우에만 버튼 클릭 가능 */
+            btnKitchen.setEnabled(true);
+            btnLivingRoom.setEnabled(true);
+            btnBedRoom.setEnabled(true);
             outputStream=bluetoothSocket.getOutputStream();
             inputStream=bluetoothSocket.getInputStream();
             beginListenForData();

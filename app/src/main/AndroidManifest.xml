@@ -10,7 +10,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
+        <activity android:name=".FindPwd" />
+        <activity android:name=".homePlusMain" />
+        <activity android:name=".joinMember" />
+        <activity android:name=".Kitchen" />
+        <activity android:name=".LivingRoom" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".Room" />
         <activity android:name=".SplashActivity">
 
             <intent-filter>

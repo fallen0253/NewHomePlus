@@ -44,15 +44,17 @@ public class MainActivity extends AppCompatActivity {
             //이미 로그인 되었다면 이 액티비티를 종료함
             finish();
             //그리고 homePlusMain 액티비티를 연다.
-            Intent intent = new Intent(getApplicationContext(),homePlusMain.class);
-            startActivityForResult(intent,REQUEST_CODE_HOMEPLUS);
+            Intent intent = new Intent(MainActivity.this,homePlusMain.class);
+            startActivity(intent);
+            //startActivityForResult(intent,REQUEST_CODE_HOMEPLUS);
         }
         /*상현 2021-04-18 회원가입 액티비티 호출 */
         btnJoinMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),joinMember.class);
-                startActivityForResult(intent, REQUEST_CODE_JOINMEBER);
+                Intent intent = new Intent(MainActivity.this,joinMember.class);
+                startActivity(intent);
+                //startActivityForResult(intent, REQUEST_CODE_JOINMEBER);
             }
         });
         /*상현 2021-04-18 홈플러스 메인 액티비티 호출*/
@@ -66,8 +68,9 @@ public class MainActivity extends AppCompatActivity {
         tvFindPW.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), FindPwd.class);
+                Intent intent = new Intent(MainActivity.this , FindPwd.class);
                 startActivity(intent);
+                //startActivity(intent);
             }
         });
     }
@@ -108,8 +111,9 @@ public class MainActivity extends AppCompatActivity {
                             /* 리나 2021-04-24 로그인이 완료되면 페이지 이동후 로그인 페이지는 종료해야함
                              * 그래야지 뒤돌아가기 버튼을 이용해서 로그인 페이지로 돌아올 수 없음*/
                             finish();
-                            Intent intent = new Intent(getApplicationContext(),homePlusMain.class);
-                            startActivityForResult(intent,REQUEST_CODE_HOMEPLUS);
+                            Intent intent = new Intent(MainActivity.this,homePlusMain.class);
+                            startActivity(intent);
+                            //startActivityForResult(intent,REQUEST_CODE_HOMEPLUS);
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(MainActivity.this, "Authentication failed.",

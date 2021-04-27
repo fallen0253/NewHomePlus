@@ -54,7 +54,7 @@ public class joinMember extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //회원가입 이미 완료한 사람은 로그인 페이지로 이동
-                Intent intent = new Intent(org.techtown.homeplusactivity.joinMember.this, MainActivity.class);
+                Intent intent = new Intent(joinMember.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -86,7 +86,7 @@ public class joinMember extends AppCompatActivity {
                             setResult(RESULT_OK,intent);
                             finish();
                         } else {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(org.techtown.homeplusactivity.joinMember.this);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(joinMember.this);
                             builder.setTitle("에러유형");
                             builder.setMessage("-이미 등록된 이메일-\n-암호 최소 6자리 이상-\n-서버에러-");
                             /*리나 2021-04-24 '확인'버튼 클릭 시 이벤트 null로 수정*/
