@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,7 +39,8 @@ import java.util.UUID;
 public class homePlusMain extends AppCompatActivity {
 
     Button btnKitchen, btnLivingRoom, btnBedRoom;
-    ImageView imgPower, ivConnect;
+    ImageView imgLight, ivConnect;
+    TextView tvLightState;
 
     FirebaseAuth mAuth;
 
@@ -54,7 +56,7 @@ public class homePlusMain extends AppCompatActivity {
     char charDelimiter='\n';
     byte readBuffer[];
     int readBufferPosition;
-    String str; //아두이노에 전달한 값을 저장하는 변수
+    String str="0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +66,9 @@ public class homePlusMain extends AppCompatActivity {
         btnKitchen=findViewById(R.id.btnKitchen);
         btnLivingRoom=findViewById(R.id.btnLivingRoom);
         btnBedRoom=findViewById(R.id.btnBedRoom);
-        imgPower=findViewById(R.id.imgLight);
+        imgLight=findViewById(R.id.imgLight);
         ivConnect=findViewById(R.id.ivConnect);
+        tvLightState=findViewById(R.id.tvLightState);
 
         /*리나 2021-04-27 블루투스 연결되었을 경우에만 버튼 클릭 가능 */
         btnKitchen.setEnabled(false);
@@ -100,6 +103,23 @@ public class homePlusMain extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 checkBluetooth();
+            }
+        });
+        /*리나 2021-04-28 거실 LED 점등*/
+        imgLight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(str.equals("0")){ //0이면 꺼져있는 상태
+                    str="1"; // 1을 전달하여 붙 켜기
+                    tvLightState.setText("ON");
+                    sendData(str);
+                } else if(str.equals("1")){ //1이면 켜져있는 상태
+                    str="0"; // 0을 전달하여 불 끄기
+                    tvLightState.setText("OFF");
+                    sendData(str);
+                }
+                Log.i("slskfl", str);
+
             }
         });
         /*리나 2021-04-24 로그인 상태 확인*/
@@ -295,7 +315,7 @@ public class homePlusMain extends AppCompatActivity {
     }
 
     //데이터 송신(아두이노로 전송)
-    private void sendDate(String msg) {
+    private void sendData(String msg) {
         msg+=strDelimiter;
         try{
             outputStream.write(msg.getBytes()); //문자열 전송
