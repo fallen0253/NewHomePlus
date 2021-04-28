@@ -49,8 +49,7 @@ public class homePlusMain extends AppCompatActivity {
     Set<BluetoothDevice> devices; //블루투스 장치
     BluetoothDevice remoteDevice; //내가 사용할 블루투스 장치
     BluetoothSocket bluetoothSocket; //블루투스 통신
-    OutputStream outputStream=null;
-    InputStream inputStream=null;
+
     Thread wokerThread=null;
     String strDelimiter="\n";
     char charDelimiter='\n';
@@ -262,8 +261,8 @@ public class homePlusMain extends AppCompatActivity {
             btnKitchen.setEnabled(true);
             btnLivingRoom.setEnabled(true);
             btnBedRoom.setEnabled(true);
-            outputStream=bluetoothSocket.getOutputStream();
-            inputStream=bluetoothSocket.getInputStream();
+            InputOutput.outputStream=bluetoothSocket.getOutputStream();
+            InputOutput.inputStream=bluetoothSocket.getInputStream();
             beginListenForData();
         }catch (Exception e){
             showToast("소켓 연결이 되지 않았습니다.");
@@ -281,11 +280,12 @@ public class homePlusMain extends AppCompatActivity {
             public void run() {
                 while(!Thread.currentThread().isInterrupted()){ //쓰레드가 중단된 상태가 아닐 경우
                     try{
-                        int byteAvailalbe=inputStream.available(); //수신데이터가 있는지 확인
+
+                        int byteAvailalbe=InputOutput.inputStream.available(); //수신데이터가 있는지 확인
                         if(byteAvailalbe>0){
                             //아두이노에서 보낸 데이터가 있음
                             byte[] packetBytes=new byte[byteAvailalbe];
-                            inputStream.read(packetBytes);
+                            InputOutput.inputStream.read(packetBytes);
                             for(int i=0; i<byteAvailalbe; i++){
                                 byte b=packetBytes[i];
                                 if(b==charDelimiter){
@@ -318,7 +318,7 @@ public class homePlusMain extends AppCompatActivity {
     private void sendData(String msg) {
         msg+=strDelimiter;
         try{
-            outputStream.write(msg.getBytes()); //문자열 전송
+            InputOutput.outputStream.write(msg.getBytes()); //문자열 전송
         }catch (Exception e){
             showToast("문자열 전송 도중에 오류가 발생했습니다.");
         }
@@ -329,8 +329,8 @@ public class homePlusMain extends AppCompatActivity {
         super.onDestroy();
         try{
             wokerThread.interrupt();
-            inputStream.close();
-            outputStream.close();
+            InputOutput.inputStream.close();
+            InputOutput.outputStream.close();
             bluetoothSocket.close();
         }catch (Exception e){
             showToast("앱 종료 중 에러 발생");
