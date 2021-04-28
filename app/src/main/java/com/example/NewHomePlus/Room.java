@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,11 +14,6 @@ public class Room extends AppCompatActivity implements SeekBar.OnSeekBarChangeLi
     SeekBar seekRED, seekGREEN, seekBLUE;
     LinearLayout rgbColor;
     int redValue, greenValue, blueValue;
-
-    String strDelimiter="\n";
-    char charDelimiter='\n';
-    String str;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,22 +34,15 @@ public class Room extends AppCompatActivity implements SeekBar.OnSeekBarChangeLi
         switch (seekBar.getId()){
             case R.id.seekRED:
                 redValue=progress;
-                str="R"+String.valueOf(progress);
                 break;
             case R.id.seekGREEN:
                 greenValue=progress;
-                str="G"+String.valueOf(progress);
                 break;
             case R.id.seekBLUE:
                 blueValue=progress;
-                str="B"+String.valueOf(progress);
                 break;
         }
-        if(InputOutput.outputStream!=null) {
-            sendData(str);
-        }
         rgbColor.setBackgroundColor(0xff000000+redValue*0x10000+greenValue*0x100+blueValue);
-
     }
 
     @Override
@@ -66,15 +53,6 @@ public class Room extends AppCompatActivity implements SeekBar.OnSeekBarChangeLi
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
 
-    }
-
-    private void sendData(String msg) {
-        msg+=strDelimiter;
-        try{
-            InputOutput.outputStream.write(msg.getBytes()); //문자열 전송
-        }catch (Exception e){
-            Toast.makeText(getApplicationContext(), "문자열 전송 도중에 오류가 발생했습니다.",  Toast.LENGTH_SHORT).show();
-        }
     }
 }
 

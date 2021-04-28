@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -41,7 +42,6 @@ public class homePlusMain extends AppCompatActivity {
     Button btnKitchen, btnLivingRoom, btnBedRoom;
     ImageView imgLight, ivConnect;
     TextView tvLightState;
-
     FirebaseAuth mAuth;
 
     BluetoothAdapter btAdapter; //클래스
@@ -68,12 +68,13 @@ public class homePlusMain extends AppCompatActivity {
         imgLight=findViewById(R.id.imgLight);
         ivConnect=findViewById(R.id.ivConnect);
         tvLightState=findViewById(R.id.tvLightState);
-
         /*리나 2021-04-27 블루투스 연결되었을 경우에만 버튼 클릭 가능 */
         btnKitchen.setEnabled(false);
         btnLivingRoom.setEnabled(false);
         btnBedRoom.setEnabled(true);
-
+        /*상현 2021-04-28 액션바 생성*/
+        ActionBar bar = getSupportActionBar();
+        bar.setTitle("Home Plus");
         /*리나 2021-04-27 버튼 추가*/
         btnKitchen.setOnClickListener(new View.OnClickListener() {
             @Override
