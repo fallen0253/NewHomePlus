@@ -41,7 +41,7 @@ public class Kitchen extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.membermenu,menu);
+        menuInflater.inflate(R.menu.membermenuback,menu);
         return true;
     }
     /*상현 2021-04-28 옵션메뉴 선택시 발생 이벤트*/
@@ -79,6 +79,9 @@ public class Kitchen extends AppCompatActivity {
                     }
                 });
                 alert_confirm.show();
+                break;
+            case R.id.goBack:
+                finish();
                 break;
         }
         return super.onOptionsItemSelected(item);

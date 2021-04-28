@@ -5,4 +5,7 @@
         android:title="로그아웃"/>
     <item android:id="@+id/deleteMember"
         android:title="회원탈퇴"/>
+    <item android:id="@+id/goBack"
+        android:title="뒤로가기"
+        app:showAsAction="never"/>
 </menu>
