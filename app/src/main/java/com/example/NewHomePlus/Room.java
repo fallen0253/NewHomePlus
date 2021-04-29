@@ -48,19 +48,15 @@ public class Room extends AppCompatActivity implements SeekBar.OnSeekBarChangeLi
         rgbColor=findViewById(R.id.rgbColor);
         ActionBar bar = getSupportActionBar();
         bar.setTitle("Home Plus");
+        bar.setDisplayHomeAsUpEnabled(true);
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.membermenuback,menu);
-        return true;
-    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.goBack:
+        switch (item.getItemId()){
+            case android.R.id.home:
                 finish();
-                break;
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
