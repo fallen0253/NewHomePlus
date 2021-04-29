@@ -72,7 +72,7 @@ public class homePlusMain extends AppCompatActivity {
         /*리나 2021-04-27 블루투스 연결되었을 경우에만 버튼 클릭 가능 */
         btnKitchen.setEnabled(false);
         btnLivingRoom.setEnabled(false);
-        btnBedRoom.setEnabled(true);
+        btnBedRoom.setEnabled(false);
 
         /*리나 2021-04-27 버튼 추가*/
         btnKitchen.setOnClickListener(new View.OnClickListener() {

@@ -32,6 +32,7 @@ public class Room extends AppCompatActivity implements SeekBar.OnSeekBarChangeLi
         seekGREEN=findViewById(R.id.seekGREEN);
         seekGREEN.setOnSeekBarChangeListener(this);
         rgbColor=findViewById(R.id.rgbColor);
+
     }
 
     @Override
