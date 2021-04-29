@@ -35,20 +35,15 @@ public class Kitchen extends AppCompatActivity {
         /*상현 2021-04-28 액션바 생성*/
         ActionBar bar = getSupportActionBar();
         bar.setTitle("Home Plus");
+        bar.setDisplayHomeAsUpEnabled(true);
 
     }
-    /*상현 2021-04-28 옵션메뉴 생성 */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.membermenuback,menu);
-        return true;
-    }
+
     /*상현 2021-04-28 옵션메뉴 선택시 발생 이벤트*/
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.goBack:
+            case android.R.id.home:
                 finish();
                 break;
         }
