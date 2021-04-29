@@ -48,38 +48,6 @@ public class Kitchen extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.logOut:
-                mAuth.signOut();
-                finish();
-                startActivity(new Intent(this, MainActivity.class));
-                Log.i("Test_result : ", "로그아웃.");
-                break;
-            case R.id.deleteMember:
-                AlertDialog.Builder alert_confirm = new AlertDialog.Builder(Kitchen.this);
-                alert_confirm.setMessage("정말 계정을 삭제 할까요?").setCancelable(false).setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                user.delete()
-                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                showToast("계정이 삭제 되었습니다.");
-                                                finish();
-                                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                            }
-                                        });
-                            }
-                        }
-                );
-                alert_confirm.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        showToast("회원탈퇴를 취소하셨습니다.");
-                    }
-                });
-                alert_confirm.show();
-                break;
             case R.id.goBack:
                 finish();
                 break;
