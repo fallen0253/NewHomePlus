@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -24,6 +25,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class LivingRoom extends AppCompatActivity {
 
@@ -31,7 +36,13 @@ public class LivingRoom extends AppCompatActivity {
     TextView tvLCD1, tvLCD2;
     CheckBox cbDate, cbWeather, cbDust, cbUserInput;
     EditText edtLCDInput;
-    FirebaseAuth mAuth;
+    String strDelimiter="\n";
+    String LEDstr;
+    String datestr;
+    Date today = new Date();
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +60,35 @@ public class LivingRoom extends AppCompatActivity {
         ActionBar bar = getSupportActionBar();
         bar.setTitle("Home Plus");
         bar.setDisplayHomeAsUpEnabled(true);
-
+        swLED=findViewById(R.id.swLED);
+        swLED.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            /*상현 2021-04-29 LCD전원 키기*/
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(InputOutput.outputStream!=null) {
+                    if(isChecked){
+                        LEDstr="1";
+                    }else{
+                        LEDstr="0";
+                    }
+                    sendData(LEDstr);
+                }
+            }
+        });
+        /*상현 2021-04-29 날짜 보여주기 */
+        cbDate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(InputOutput.outputStream!=null){
+                    if(isChecked){
+                        datestr=format.format(today);
+                    }else{
+                        datestr="";
+                    }
+                    sendData(datestr);
+                }
+            }
+        });
     }
 
     /*상현 2021-04-28 옵션메뉴 선택시 발생 이벤트*/
@@ -61,6 +100,14 @@ public class LivingRoom extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+    private void sendData(String msg) {
+        msg+=strDelimiter;
+        try{
+            InputOutput.outputStream.write(msg.getBytes()); //문자열 전송
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(), "문자열 전송 도중에 오류가 발생했습니다.",  Toast.LENGTH_SHORT).show();
+        }
     }
     void showToast(String msg) {
         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
