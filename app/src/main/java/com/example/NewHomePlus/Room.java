@@ -32,7 +32,6 @@ public class Room extends AppCompatActivity implements SeekBar.OnSeekBarChangeLi
     FirebaseAuth mAuth;
 
     String strDelimiter="\n";
-    char charDelimiter='\n';
     String str;
 
     @Override

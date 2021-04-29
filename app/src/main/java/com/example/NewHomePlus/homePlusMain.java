@@ -1,10 +1,18 @@
 package com.example.NewHomePlus;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -21,6 +29,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -57,6 +66,9 @@ public class homePlusMain extends AppCompatActivity {
     int readBufferPosition;
     String str="0";
 
+    String channelID="";
+    NotificationManager notificationManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +85,8 @@ public class homePlusMain extends AppCompatActivity {
         btnKitchen.setEnabled(false);
         btnLivingRoom.setEnabled(false);
         btnBedRoom.setEnabled(false);
+
+        noti();
 
         /*리나 2021-04-27 버튼 추가*/
         btnKitchen.setOnClickListener(new View.OnClickListener() {
@@ -269,6 +283,7 @@ public class homePlusMain extends AppCompatActivity {
         }
     }
 
+    /*리나 2021-04-29 가스 값 수신*/
     //데이터 수신 준비 및 처리
     void beginListenForData(){
         final Handler handler=new Handler();
@@ -291,13 +306,15 @@ public class homePlusMain extends AppCompatActivity {
                                 if(b==charDelimiter){
                                     byte[] encodeByte=new byte[readBufferPosition];
                                     System.arraycopy(readBuffer, 0, encodeByte, 0, encodeByte.length);
-                                    final String data=new String(encodeByte, "US-ASCII");
+                                    final String gasValueS=new String(encodeByte, "US-ASCII");
                                     readBufferPosition=0;
                                     handler.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            //data변수에 수신된 문자열에 대한 처리 작업
-
+                                            int gasValue=Integer.getInteger(gasValueS);
+                                            if(gasValue>300){
+                                                noti();
+                                            }
                                         }
                                     });
                                 }else{
@@ -313,7 +330,35 @@ public class homePlusMain extends AppCompatActivity {
         });
         wokerThread.start();
     }
+    /*리나 2021-04-29 가스 값 감지 후 알림 띄우기*/
+    void noti(){
+        Bitmap largeIcon= BitmapFactory.decodeResource(getResources(), R.drawable.warning);
+        PendingIntent pIntent=PendingIntent.getActivity(homePlusMain.this, 0,
+                new Intent(getApplicationContext(), Kitchen.class), PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationCompat.Builder builder;
+        if(Build.VERSION.SDK_INT>=26) {
+            //channelID>> 채널의 알림 순위를 지정
+            NotificationChannel channel=new NotificationChannel(channelID,"채널이름",
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            ((NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE))
+                    .createNotificationChannel(channel);
+            builder = new NotificationCompat.Builder(homePlusMain.this, channelID);
+        } else{
+            builder = new NotificationCompat.Builder(homePlusMain.this);
+        }
+        //메소드 체인 이용
+        builder.setSmallIcon(R.drawable.warning)
+                .setContentTitle("가스 감지")
+                .setContentText("가스가 감지되었습니다. 확인해주세요!")
+                .setDefaults(Notification.DEFAULT_SOUND)
+                .setLargeIcon(largeIcon)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true)
+                .setContentIntent(pIntent);
+        notificationManager=(NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(0, builder.build());
 
+    }
     //데이터 송신(아두이노로 전송)
     private void sendData(String msg) {
         msg+=strDelimiter;
