@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -53,15 +54,17 @@ public class Kitchen extends AppCompatActivity {
     char charDelimiter='\n';
     byte readBuffer[];
     int readBufferPosition;
-    Intent intent = getIntent();
 
+    int tempValue;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.kitchen);
         /*상현 2021-04-30 가스값이 담긴 tempValue를 Int tempValue로 담는다.*/
-        int tempValue = Integer.parseInt(intent.getStringExtra("tempValue"));
+        Intent intent = getIntent();
+        tempValue = intent.getIntExtra("tempValue",0);
+        Log.i("slsksl", "Kitchen tempValue: "+String.valueOf(tempValue));
 
         /*상현 2021-04-28 액션바 생성*/
         ActionBar bar = getSupportActionBar();
@@ -84,6 +87,21 @@ public class Kitchen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        /*받아온 온도값 뿌려주기*/
+        tvTemperature.setText("현재 온도 : " + tempValue);
+        Log.i("slfksl", "온도 값: "+tempValue);
+        anim = new AlphaAnimation(0.0f,1.0f); //투명도 조절
+        anim.setDuration(300); //지속시간
+        anim.setStartOffset(20); //대기시간
+        anim.setRepeatMode(Animation.REVERSE); //반복
+        anim.setRepeatCount(Animation.INFINITE); //반복 횟수 지정
+        if(tempValue>20){
+            ivSecurity.setImageResource(R.drawable.shield_on);
+            tvFireOn.startAnimation(anim);
+        }else{
+            tvFireOn.clearAnimation();
+        }
 
     }
 

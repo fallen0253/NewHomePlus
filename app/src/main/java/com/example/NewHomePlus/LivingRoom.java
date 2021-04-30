@@ -55,9 +55,9 @@ public class LivingRoom extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(InputOutput.outputStream!=null) {
                     if(isChecked){
-                        LEDstr="1";
+                        LEDstr="C1";
                     }else{
-                        LEDstr="0";
+                        LEDstr="C0";
                     }
                     sendData(LEDstr);
                 }

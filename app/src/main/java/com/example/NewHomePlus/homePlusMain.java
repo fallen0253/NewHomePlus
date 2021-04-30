@@ -70,7 +70,7 @@ public class homePlusMain extends AppCompatActivity {
     NotificationManager notificationManager;
 
 
-    int gasValue;
+    int tempValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +89,6 @@ public class homePlusMain extends AppCompatActivity {
         btnLivingRoom.setEnabled(false);
         btnBedRoom.setEnabled(false);
 
-        noti();
 
         /*리나 2021-04-27 버튼 추가*/
         btnKitchen.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +96,8 @@ public class homePlusMain extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(homePlusMain.this, Kitchen.class);
                 /*상현 2021-04-30 가스값을 tempValue에 담는다.*/
-                intent.putExtra("tempValue",gasValue);
+                intent.putExtra("tempValue",tempValue);
+                Log.i("slskfl" , "보내기전-온도 값 :  "+ tempValue );
                 startActivity(intent);
             }
         });
@@ -311,15 +311,23 @@ public class homePlusMain extends AppCompatActivity {
                                 if(b==charDelimiter){
                                     byte[] encodeByte=new byte[readBufferPosition];
                                     System.arraycopy(readBuffer, 0, encodeByte, 0, encodeByte.length);
-                                    final String gasValueS=new String(encodeByte, "US-ASCII");
+                                    final String data=new String(encodeByte, "US-ASCII");
                                     readBufferPosition=0;
                                     handler.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            gasValue=Integer.getInteger(gasValueS);
-
-                                            if(gasValue>300){
-                                                noti();
+                                            String state=data.substring(0,1);
+                                            Log.i("slskfl", "temp : "+state);
+                                            if(state.equals("F")){
+                                                tempValue=Integer.parseInt(data.substring(1,4));
+                                                Log.i("slskfl" , "온도 값 :  "+ tempValue );
+                                                if(data.substring(4,5).equals("G")){
+                                                    int gasValue=Integer.parseInt(data.substring(5,8));
+                                                    Log.i("slskfl", "가스 값: " + data.substring(5,8) );
+                                                    if(gasValue>260){
+                                                        noti();
+                                                    }
+                                                }
                                             }
                                         }
                                     });
