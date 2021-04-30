@@ -30,6 +30,8 @@ public class LivingRoom extends AppCompatActivity {
     Date today = new Date();
     String edtText;
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    int count=0;
+
 
 
     @Override
@@ -49,6 +51,56 @@ public class LivingRoom extends AppCompatActivity {
         bar.setTitle("Home Plus");
         bar.setDisplayHomeAsUpEnabled(true);
         swLCD =findViewById(R.id.swLCD);
+        /*상현 2021-04-30 count 2미만일때만 체크가능*/
+        if(count<2){
+            cbDate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(InputOutput.outputStream!=null){
+                        if(isChecked){
+                            datestr=format.format(today);
+                            tvLCD1.setText(datestr);
+                            count++;
+                        }else{
+                            datestr="";
+                        }
+                        sendData(datestr);
+                    }
+                }
+            });
+            cbWeather.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        tvLCD1.setText("오늘 날씨:" + );
+                        count++;
+                    }
+                }
+            });
+            cbDust.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){
+                        tvLCD2.setText("미세 먼지: " + );
+                        count++;
+                    }
+                }
+            });
+            cbUserInput.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    edtText = edtLCDInput.getText().toString();
+                    if (edtText.length()<7){
+                        tvLCD2.setText(edtText);
+                        count++;
+                    }else{
+                        showToast("글자는 6글자 이하로 쳐주세요.");
+                    }
+
+                }
+            });
+        }
+        /*상현 2021-04-29 날짜 보여주기 */
 
         swLCD.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             /*상현 2021-04-29 LCD전원 키기*/
@@ -64,21 +116,7 @@ public class LivingRoom extends AppCompatActivity {
                 }
             }
         });
-        /*상현 2021-04-29 날짜 보여주기 */
-        cbDate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(InputOutput.outputStream!=null){
-                    if(isChecked){
-                        datestr=format.format(today);
 
-                    }else{
-                        datestr="";
-                    }
-                    sendData(datestr);
-                }
-            }
-        });
 
     }
 
