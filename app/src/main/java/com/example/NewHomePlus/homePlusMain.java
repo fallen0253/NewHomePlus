@@ -71,6 +71,7 @@ public class homePlusMain extends AppCompatActivity {
 
 
     int tempValue;
+    int weatherT, weatherH;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +87,7 @@ public class homePlusMain extends AppCompatActivity {
 
         /*리나 2021-04-27 블루투스 연결되었을 경우에만 버튼 클릭 가능 */
         btnKitchen.setEnabled(false);
-        btnLivingRoom.setEnabled(false);
+        btnLivingRoom.setEnabled(true);
         btnBedRoom.setEnabled(false);
 
 
@@ -105,6 +106,9 @@ public class homePlusMain extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(homePlusMain.this, LivingRoom.class);
+                /*리나 2021-04-30 날씨 온도, 습도를 intent에 담아 LivingRoom으로 넘기기.*/
+                intent.putExtra("weatherT", weatherT);
+                intent.putExtra("weatherH", weatherH);
                 startActivity(intent);
             }
         });
@@ -320,6 +324,8 @@ public class homePlusMain extends AppCompatActivity {
                                             Log.i("slskfl", "temp : "+state);
                                             if(state.equals("F")){
                                                 tempValue=Integer.parseInt(data.substring(1,4));
+                                                weatherT=Integer.parseInt(data.substring(8,10));
+                                                weatherH=Integer.parseInt(data.substring(10,12));
                                                 Log.i("slskfl" , "온도 값 :  "+ tempValue );
                                                 if(data.substring(4,5).equals("G")){
                                                     int gasValue=Integer.parseInt(data.substring(5,8));
