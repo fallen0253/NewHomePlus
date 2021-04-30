@@ -125,23 +125,27 @@ public class Kitchen extends AppCompatActivity {
                                         @Override
                                         public void run() {
                                             //온도 값
-                                            int tempValue=Integer.getInteger(tempValueS);
+                                            String temp=tempValueS.substring(0,1);
+                                            String value=tempValueS.substring(1);
+                                            int tempValue=Integer.getInteger(value);
 
-                                            tvTemperature.setText("현재 온도 : " + tempValue);
-
-                                            //온도가 올라가면 문구 깜빡거리기
-                                            if(tempValue>20){
-                                                ivSecurity.setImageResource(R.drawable.shield_on);
-                                                tvFireOn.startAnimation(anim);
-                                            }else{
-                                                tvFireOn.clearAnimation();
+                                            if(temp.equals("F")){
+                                                tvTemperature.setText("현재 온도 : " + value);
+                                                //온도가 올라가면 문구 깜빡거리기
+                                                if(tempValue>20){
+                                                    ivSecurity.setImageResource(R.drawable.shield_on);
+                                                    tvFireOn.startAnimation(anim);
+                                                }else{
+                                                    tvFireOn.clearAnimation();
+                                                }
+                                                anim = new AlphaAnimation(0.0f,1.0f); //투명도 조절
+                                                anim.setDuration(300); //지속시간
+                                                anim.setStartOffset(20); //대기시간
+                                                anim.setRepeatMode(Animation.REVERSE); //반복
+                                                anim.setRepeatCount(Animation.INFINITE); //반복 횟수 지정
+                                            } else{
+                                                tvTemperature.setText("온도 측정 불가");
                                             }
-                                            anim = new AlphaAnimation(0.0f,1.0f); //투명도 조절
-                                            anim.setDuration(300); //지속시간
-                                            anim.setStartOffset(20); //대기시간
-                                            anim.setRepeatMode(Animation.REVERSE); //반복
-                                            anim.setRepeatCount(Animation.INFINITE); //반복 횟수 지정
-
                                          }
                                     });
                                 }else{

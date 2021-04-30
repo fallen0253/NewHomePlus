@@ -67,14 +67,17 @@ public class Room extends AppCompatActivity implements SeekBar.OnSeekBarChangeLi
             case R.id.seekRED:
                 redValue=progress;
                 str="R"+String.valueOf(progress);
+                Log.i("slskfl", "RGB: "+ str);
                 break;
             case R.id.seekGREEN:
                 greenValue=progress;
                 str="G"+String.valueOf(progress);
+                Log.i("slskfl", "RGB: "+ str);
                 break;
             case R.id.seekBLUE:
                 blueValue=progress;
                 str="B"+String.valueOf(progress);
+                Log.i("slskfl", "RGB: "+ str);
                 break;
         }
         if(InputOutput.outputStream!=null) {

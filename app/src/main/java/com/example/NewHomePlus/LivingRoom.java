@@ -1,11 +1,6 @@
 package com.example.NewHomePlus;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -17,22 +12,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
 public class LivingRoom extends AppCompatActivity {
 
-    Switch swLED;
+    Switch swLCD;
     TextView tvLCD1, tvLCD2;
     CheckBox cbDate, cbWeather, cbDust, cbUserInput;
     EditText edtLCDInput;
@@ -48,7 +36,6 @@ public class LivingRoom extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.living_room);
 
-        swLED=findViewById(R.id.swLED);
         tvLCD1=findViewById(R.id.tvLCD1);
         tvLCD2=findViewById(R.id.tvLCD2);
         cbDate=findViewById(R.id.cbDate);
@@ -60,8 +47,9 @@ public class LivingRoom extends AppCompatActivity {
         ActionBar bar = getSupportActionBar();
         bar.setTitle("Home Plus");
         bar.setDisplayHomeAsUpEnabled(true);
-        swLED=findViewById(R.id.swLED);
-        swLED.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        swLCD =findViewById(R.id.swLCD);
+
+        swLCD.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             /*상현 2021-04-29 LCD전원 키기*/
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

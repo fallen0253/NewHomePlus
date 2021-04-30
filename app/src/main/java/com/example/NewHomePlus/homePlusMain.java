@@ -64,10 +64,13 @@ public class homePlusMain extends AppCompatActivity {
     char charDelimiter='\n';
     byte readBuffer[];
     int readBufferPosition;
-    String str="0";
+    String str="L0";
 
     String channelID="";
     NotificationManager notificationManager;
+
+
+    int gas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,16 +125,16 @@ public class homePlusMain extends AppCompatActivity {
         imgLight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(str.equals("0")){ //0이면 꺼져있는 상태
-                    str="1"; // 1을 전달하여 붙 켜기
+                if(str.equals("L0")){ //0이면 꺼져있는 상태
+                    str="L1"; // 1을 전달하여 붙 켜기
                     tvLightState.setText("ON");
                     sendData(str);
-                } else if(str.equals("1")){ //1이면 켜져있는 상태
-                    str="0"; // 0을 전달하여 불 끄기
+                } else if(str.equals("L1")){ //1이면 켜져있는 상태
+                    str="L0"; // 0을 전달하여 불 끄기
                     tvLightState.setText("OFF");
                     sendData(str);
                 }
-                Log.i("slskfl", str);
+                Log.i("slskfl", "LED: "+ str);
 
             }
         });
