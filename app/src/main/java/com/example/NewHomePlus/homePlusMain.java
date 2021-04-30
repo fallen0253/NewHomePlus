@@ -70,7 +70,7 @@ public class homePlusMain extends AppCompatActivity {
     NotificationManager notificationManager;
 
 
-    int gas;
+    int gasValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +96,8 @@ public class homePlusMain extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(homePlusMain.this, Kitchen.class);
+                /*상현 2021-04-30 가스값을 tempValue에 담는다.*/
+                intent.putExtra("tempValue",gasValue);
                 startActivity(intent);
             }
         });
@@ -314,7 +316,8 @@ public class homePlusMain extends AppCompatActivity {
                                     handler.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            int gasValue=Integer.getInteger(gasValueS);
+                                            gasValue=Integer.getInteger(gasValueS);
+
                                             if(gasValue>300){
                                                 noti();
                                             }

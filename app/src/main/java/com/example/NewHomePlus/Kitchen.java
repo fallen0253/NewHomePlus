@@ -53,12 +53,16 @@ public class Kitchen extends AppCompatActivity {
     char charDelimiter='\n';
     byte readBuffer[];
     int readBufferPosition;
+    Intent intent = getIntent();
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.kitchen);
+        /*상현 2021-04-30 가스값이 담긴 tempValue를 Int tempValue로 담는다.*/
+        int tempValue = Integer.parseInt(intent.getStringExtra("tempValue"));
+
         /*상현 2021-04-28 액션바 생성*/
         ActionBar bar = getSupportActionBar();
         bar.setTitle("Home Plus");
