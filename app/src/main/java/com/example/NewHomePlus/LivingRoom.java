@@ -28,6 +28,7 @@ public class LivingRoom extends AppCompatActivity {
     String LEDstr;
     String datestr;
     Date today = new Date();
+    String edtText;
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
 
@@ -70,6 +71,7 @@ public class LivingRoom extends AppCompatActivity {
                 if(InputOutput.outputStream!=null){
                     if(isChecked){
                         datestr=format.format(today);
+
                     }else{
                         datestr="";
                     }
@@ -77,6 +79,7 @@ public class LivingRoom extends AppCompatActivity {
                 }
             }
         });
+
     }
 
     /*상현 2021-04-28 옵션메뉴 선택시 발생 이벤트*/
