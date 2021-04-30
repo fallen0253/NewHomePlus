@@ -316,6 +316,7 @@ public class homePlusMain extends AppCompatActivity {
                                     byte[] encodeByte=new byte[readBufferPosition];
                                     System.arraycopy(readBuffer, 0, encodeByte, 0, encodeByte.length);
                                     final String data=new String(encodeByte, "US-ASCII");
+                                    Log.i("slskfl" , "data 값 :  "+ data );
                                     readBufferPosition=0;
                                     handler.post(new Runnable() {
                                         @Override
@@ -325,8 +326,10 @@ public class homePlusMain extends AppCompatActivity {
                                             if(state.equals("F")){
                                                 tempValue=Integer.parseInt(data.substring(1,4));
                                                 weatherT=Integer.parseInt(data.substring(8,10));
-                                                weatherH=Integer.parseInt(data.substring(10,12));
+                                                weatherH=Integer.parseInt(data.substring(10));
                                                 Log.i("slskfl" , "온도 값 :  "+ tempValue );
+                                                Log.i("slskfl" , "날씨 온도 값 :  "+ data.substring(8,10) );
+                                                Log.i("slskfl" , "날씨 습도 값 :  "+ data.substring(10));
                                                 if(data.substring(4,5).equals("G")){
                                                     int gasValue=Integer.parseInt(data.substring(5,8));
                                                     Log.i("slskfl", "가스 값: " + data.substring(5,8) );
