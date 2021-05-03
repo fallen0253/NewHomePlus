@@ -72,6 +72,7 @@ public class homePlusMain extends AppCompatActivity {
 
     int tempValue;
     int weatherT, weatherH;
+    int dust;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +110,7 @@ public class homePlusMain extends AppCompatActivity {
                 /*리나 2021-04-30 날씨 온도, 습도를 intent에 담아 LivingRoom으로 넘기기.*/
                 intent.putExtra("weatherT", weatherT);
                 intent.putExtra("weatherH", weatherH);
+                intent.putExtra("dust", dust);
                 startActivity(intent);
             }
         });
@@ -326,10 +328,12 @@ public class homePlusMain extends AppCompatActivity {
                                             if(state.equals("F")){
                                                 tempValue=Integer.parseInt(data.substring(1,4));
                                                 weatherT=Integer.parseInt(data.substring(8,10));
-                                                weatherH=Integer.parseInt(data.substring(10));
+                                                weatherH=Integer.parseInt(data.substring(10,12));
+                                                dust=Integer.parseInt(data.substring(12));
                                                 Log.i("slskfl" , "온도 값 :  "+ tempValue );
                                                 Log.i("slskfl" , "날씨 온도 값 :  "+ data.substring(8,10) );
                                                 Log.i("slskfl" , "날씨 습도 값 :  "+ data.substring(10));
+                                                Log.i("slskfl", "미센먼지 값 : "+ data.substring(12));
                                                 if(data.substring(4,5).equals("G")){
                                                     int gasValue=Integer.parseInt(data.substring(5,8));
                                                     Log.i("slskfl", "가스 값: " + data.substring(5,8) );
@@ -386,6 +390,7 @@ public class homePlusMain extends AppCompatActivity {
     private void sendData(String msg) {
         msg+=strDelimiter;
         try{
+            Log.i("slskfl", "HomePlusMain sendData : " +msg);
             InputOutput.outputStream.write(msg.getBytes()); //문자열 전송
         }catch (Exception e){
             showToast("문자열 전송 도중에 오류가 발생했습니다.");

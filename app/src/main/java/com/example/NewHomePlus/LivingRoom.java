@@ -17,6 +17,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -29,12 +30,11 @@ public class LivingRoom extends AppCompatActivity {
     String strDelimiter = "\n";
     String LEDstr;
     String datestr;
-    long now;
-    Date today = new Date(now);
     String edtText;
-    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    int cYear, cMonth, cDay;
+    String now;
 
-    int weatherT, weatherH;
+    int weatherT, weatherH, dust;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,9 +48,21 @@ public class LivingRoom extends AppCompatActivity {
         cbUserInput = findViewById(R.id.cbUserInput);
         edtLCDInput = findViewById(R.id.edtLCDInput);
 
+        /*Calendar calendar=Calendar.getInstance();
+        cYear = calendar.get(Calendar.YEAR);
+        cMonth = calendar.get(Calendar.MONTH);
+        cDay = calendar.get(Calendar.DAY_OF_MONTH);
+        now = cYear+"/"+(cMonth+1)+"/"+cDay;
+        datestr = now;*/
+
+        Date today = new Date();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String result = df.format(today);
+
         Intent intent = getIntent();
         weatherT = intent.getIntExtra("weatherT",0);
         weatherH = intent.getIntExtra("weatherH",0);
+        dust = intent.getIntExtra("dust", 0);
 
         Log.i("slskfl", "LivingRoom weatherT:" + weatherT);
         Log.i("slskfl", "LivingRoom weatherH:" + weatherH);
@@ -60,13 +72,12 @@ public class LivingRoom extends AppCompatActivity {
         bar.setTitle("Home Plus");
         bar.setDisplayHomeAsUpEnabled(true);
         swLCD = findViewById(R.id.swLCD);
-        datestr = format.format(today);
 
         cbDate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (cbDate.isChecked()) {
-                    tvLCD1.setText(datestr);
+                    tvLCD1.setText(result);
                     cbWeather.setEnabled(false);
                 } else {
                     tvLCD1.setText("");
@@ -91,7 +102,16 @@ public class LivingRoom extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (cbDust.isChecked()) {
-                    tvLCD2.setText("미세 먼지: ");
+                    String msg="";
+                    if(dust<81){
+                        msg="BAD";
+                    } else if(dust<30){
+                        msg="NOMAL";
+                    } else {
+                        msg="GOOD";
+                    }
+                    tvLCD2.setText("미세 먼지: " + msg);
+                    Log.i("slskfl", msg);
                     cbUserInput.setEnabled(false);
                 } else {
                     tvLCD2.setText("");
@@ -103,7 +123,8 @@ public class LivingRoom extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (cbUserInput.isChecked()) {
-                    tvLCD2.setText(edtText);
+                    edtLCDInput.setEnabled(true);
+                    tvLCD2.setText(edtLCDInput.getText().toString());
                     cbDust.setEnabled(false);
                 }else {
                     tvLCD2.setText("");

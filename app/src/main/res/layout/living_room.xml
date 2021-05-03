@@ -95,6 +95,7 @@
             android:text="사용자 입력 정보"/>
         <EditText
             android:id="@+id/edtLCDInput"
+            android:enabled="false"
             android:layout_margin="15dp"
             android:gravity="center"
             android:width="400dp"
@@ -103,6 +104,7 @@
             android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:hint="메세지를 입력해주세요"/>
     </LinearLayout>
 

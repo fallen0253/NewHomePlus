@@ -37,14 +37,19 @@
                 android:text="RED"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-
-            <SeekBar
+            <EditText
+                android:id="@+id/edtRed"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_rect"
+                android:hint="0~255까지의 숫자를 입력해주세요" />
+            <!--<SeekBar
                 android:id="@+id/seekRED"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:layout_gravity="center"
-                android:max="255" />
+                android:max="255" />-->
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,13 +64,19 @@
                 android:text="GREEN"
                 android:textSize="20sp"
                 android:textStyle="bold"/>
-            <SeekBar
+            <EditText
+                android:id="@+id/edtGreen"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_rect"
+                android:hint="0~255까지의 숫자를 입력해주세요" />
+            <!--<SeekBar
                 android:id="@+id/seekGREEN"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:layout_gravity="center"
-                android:max="255"/>
+                android:max="255"/>-->
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -80,14 +91,26 @@
                 android:text="BLUE"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-            <SeekBar
+            <EditText
+                android:id="@+id/edtBlue"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_rect"
+                android:hint="0~255까지의 숫자를 입력해주세요" />
+            <!--<SeekBar
                 android:id="@+id/seekBLUE"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:layout_gravity="center"
-                android:max="255"/>
+                android:max="255"/>-->
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btnSend"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="전송"/>
 
     </LinearLayout>
     <FrameLayout
