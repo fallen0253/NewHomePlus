@@ -154,7 +154,7 @@ public class Kitchen extends AppCompatActivity {
                                             if(temp.equals("F")){
                                                 tvTemperature.setText("현재 온도 : " + value);
                                                 //온도가 올라가면 문구 깜빡거리기
-                                                if(tempValue>20){
+                                                if(tempValue>300){
                                                     ivSecurity.setImageResource(R.drawable.shield_on);
                                                     tvFireOn.startAnimation(anim);
                                                 }else{

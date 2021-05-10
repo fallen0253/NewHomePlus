@@ -27,7 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 
-public class Room extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
+public class Room extends AppCompatActivity {
 
     SeekBar seekRED, seekGREEN, seekBLUE;
     LinearLayout rgbColor;
@@ -116,10 +116,10 @@ public class Room extends AppCompatActivity implements SeekBar.OnSeekBarChangeLi
         }
         return super.onOptionsItemSelected(item);
     }
-    @Override
+   /* @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        /*리나 2021-04-26 RGB 색상 보여주기*/
-       /* switch (seekBar.getId()){
+        리나 2021-04-26 RGB 색상 보여주기
+        switch (seekBar.getId()){
             case R.id.seekRED:
                 redValue=progress;
                 str="R"+String.valueOf(progress);
@@ -139,11 +139,11 @@ public class Room extends AppCompatActivity implements SeekBar.OnSeekBarChangeLi
         if(InputOutput.outputStream!=null) {
             sendData(str);
         }
-        rgbColor.setBackgroundColor(0xff000000+redValue*0x10000+greenValue*0x100+blueValue);*/
+        rgbColor.setBackgroundColor(0xff000000+redValue*0x10000+greenValue*0x100+blueValue);
 
-    }
+    }*/
 
-    @Override
+   /* @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
 
     }
@@ -151,7 +151,7 @@ public class Room extends AppCompatActivity implements SeekBar.OnSeekBarChangeLi
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
 
-    }
+    }*/
 
     private void sendData(String msg) {
         msg+=strDelimiter;

@@ -40,6 +40,7 @@
             <EditText
                 android:id="@+id/edtRed"
                 android:layout_width="300dp"
+                android:textColor="@color/black"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_rect"
                 android:hint="0~255까지의 숫자를 입력해주세요" />
@@ -66,11 +67,12 @@
                 android:textStyle="bold"/>
             <EditText
                 android:id="@+id/edtGreen"
+                android:textColor="@color/black"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_rect"
                 android:hint="0~255까지의 숫자를 입력해주세요" />
-            <!--<SeekBar
+           <!-- <SeekBar
                 android:id="@+id/seekGREEN"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
@@ -93,6 +95,7 @@
                 android:textStyle="bold" />
             <EditText
                 android:id="@+id/edtBlue"
+                android:textColor="@color/black"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_rect"
@@ -125,61 +128,5 @@
             android:layout_gravity="center_vertical|center_horizontal"
             android:orientation="horizontal" />
     </FrameLayout>
-
-
-   <!-- <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="20dp">
-        <TextView
-            android:id="@+id/tvRED"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="RED"
-            android:clickable="true"
-            android:textStyle="bold"/>
-        <SeekBar
-            android:id="@+id/seekRED"
-            android:layout_width="330dp"
-            android:layout_height="wrap_content"
-            android:max="255"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="20dp">
-        <TextView
-            android:id="@+id/tvGREEN"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="GREEN"
-            android:textStyle="bold"/>
-        <SeekBar
-            android:id="@+id/seekGREEN"
-            android:layout_width="330dp"
-            android:layout_height="wrap_content"
-            android:max="255"/>
-
-    </LinearLayout>
-    <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="20dp">
-    <TextView
-        android:id="@+id/tvBLUE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="BLUE"
-        android:textStyle="bold"/>
-        <SeekBar
-            android:id="@+id/seekBLUE"
-            android:layout_width="330dp"
-            android:layout_height="wrap_content"
-            android:max="255"/>
-    </LinearLayout>-->
 
 </LinearLayout>

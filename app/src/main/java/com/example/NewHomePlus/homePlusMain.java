@@ -289,6 +289,7 @@ public class homePlusMain extends AppCompatActivity {
             InputOutput.outputStream=bluetoothSocket.getOutputStream();
             InputOutput.inputStream=bluetoothSocket.getInputStream();
             beginListenForData();
+            showToast("연결 됨");
         }catch (Exception e){
             showToast("소켓 연결이 되지 않았습니다.");
         }
@@ -310,11 +311,15 @@ public class homePlusMain extends AppCompatActivity {
                         int byteAvailalbe=InputOutput.inputStream.available(); //수신데이터가 있는지 확인
                         if(byteAvailalbe>0){
                             //아두이노에서 보낸 데이터가 있음
+
                             byte[] packetBytes=new byte[byteAvailalbe];
                             InputOutput.inputStream.read(packetBytes);
+
                             for(int i=0; i<byteAvailalbe; i++){
                                 byte b=packetBytes[i];
+
                                 if(b==charDelimiter){
+
                                     byte[] encodeByte=new byte[readBufferPosition];
                                     System.arraycopy(readBuffer, 0, encodeByte, 0, encodeByte.length);
                                     final String data=new String(encodeByte, "US-ASCII");
@@ -323,9 +328,65 @@ public class homePlusMain extends AppCompatActivity {
                                     handler.post(new Runnable() {
                                         @Override
                                         public void run() {
-                                            String state=data.substring(0,1);
-                                            Log.i("slskfl", "temp : "+state);
-                                            if(state.equals("F")){
+                                            //String state=data.substring(0,1);
+                                            int index=data.indexOf("F");
+                                            //Log.i("slskfl", "temp : "+state);
+                                            //if(state.equals("F")){
+                                            if(index != -1) {
+                                                tempValue=Integer.parseInt(data.substring(index+1,index+4));
+                                                Log.i("slskfl", "온도값 : "+tempValue);
+                                                weatherT=Integer.parseInt(data.substring(index+4,index+6));
+                                                Log.i("slskfl","섭씨 : "+weatherT);
+                                                weatherH=Integer.parseInt(data.substring(index+6,index+8));
+                                                Log.i("slskfl","습도 : "+weatherH);
+                                                    dust=Integer.parseInt(data.substring(index+8,index+11));
+                                                Log.i("slskfl","먼지:"+dust);
+                                                if(data.substring(index+11,index+12).equals("G")){
+                                                    int gasValue=Integer.parseInt(data.substring(index+12,index+15));
+                                                    Log.i("slskfl", "가스 값: " + gasValue);
+                                                    if(gasValue>270){
+                                                        noti();
+                                                    }
+                                            /*//String state=data.substring(0,1);
+                                            int index=data.indexOf("F");
+                                            //Log.i("slskfl", "temp : "+state);
+                                             //if(state.equals("F")){
+                                             if(index != -1) {
+                                                tempValue=Integer.parseInt(data.substring(index+1,index+4));
+                                                Log.i("slskfl", "온도값 : "+tempValue);
+                                                weatherT=Integer.parseInt(data.substring(index+4,index+6));
+                                                Log.i("slskfl","섭씨 : "+weatherT);
+                                                weatherH=Integer.parseInt(data.substring(index+6,index+8));
+                                                Log.i("slskfl","습도 : "+weatherH);
+                                                if(data.substring(index+8,index+9).equals("D")){
+                                                    dust=Integer.parseInt(data.substring(index+9,index+12));
+                                                }
+                                                Log.i("slskfl","먼지:"+dust);
+                                                if(data.substring(index+12,index+13).equals("G")){
+                                                    int gasValue=Integer.parseInt(data.substring(index+13,index+16));
+                                                    Log.i("slskfl", "가스 값: " + gasValue);
+                                                    if(gasValue>270){
+                                                        noti();
+                                                    }*/
+                                                    /*if(state.equals("F")){
+                                                        tempValue=Integer.parseInt(data.substring(1,4));
+                                                        Log.i("slskfl", "온도값 : "+tempValue);
+                                                        weatherT=Integer.parseInt(data.substring(4,6));
+                                                        Log.i("slskfl","섭씨 : "+weatherT);
+                                                        weatherH=Integer.parseInt(data.substring(6,8));
+                                                        Log.i("slskfl","습도 : "+weatherH);
+                                                        dust=Integer.parseInt(data.substring(8,10));
+                                                        Log.i("slskfl" , "온도 값 :  "+ tempValue );
+                                                        Log.i("slskfl" , "날씨 온도 값 :  "+ data.substring(4,6) );
+                                                        Log.i("slskfl" , "날씨 습도 값 :  "+ data.substring(6,8));
+                                                        Log.i("slskfl", "미센먼지 값 : "+ data.substring(8,10));
+                                                        if(data.substring(10,11).equals("G")){
+                                                            int gasValue=Integer.parseInt(data.substring(10));
+                                                            Log.i("slskfl", "가스 값: " + data.substring(10));
+                                                            if(gasValue>260){
+                                                                noti();
+                                                            }*/
+                                            /*if(state.equals("F")){
                                                 tempValue=Integer.parseInt(data.substring(1,4));
                                                 weatherT=Integer.parseInt(data.substring(8,10));
                                                 weatherH=Integer.parseInt(data.substring(10,12));
@@ -339,7 +400,7 @@ public class homePlusMain extends AppCompatActivity {
                                                     Log.i("slskfl", "가스 값: " + data.substring(5,8) );
                                                     if(gasValue>260){
                                                         noti();
-                                                    }
+                                                    }*/
                                                 }
                                             }
                                         }

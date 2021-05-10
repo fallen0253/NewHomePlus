@@ -104,11 +104,11 @@ public class LivingRoom extends AppCompatActivity {
                 if (cbDust.isChecked()) {
                     String msg="";
                     if(dust<81){
-                        msg="BAD";
-                    } else if(dust<30){
                         msg="NOMAL";
-                    } else {
+                    } else if(dust<30){
                         msg="GOOD";
+                    } else {
+                        msg="BAD";
                     }
                     tvLCD2.setText("미세 먼지: " + msg);
                     Log.i("slskfl", msg);
